@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Muzsi_Henrietta_Lab2.Data;
 using Muzsi_Henrietta_Lab2.Models;
 
-namespace Muzsi_Henrietta_Lab2.Pages.Author
+namespace Muzsi_Henrietta_Lab2.Pages.Authors
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Muzsi_Henrietta_Lab2.Pages.Author
         }
 
         [BindProperty]
-      public Authors Authors { get; set; } = default!;
+      public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace Muzsi_Henrietta_Lab2.Pages.Author
                 return NotFound();
             }
 
-            var authors = await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
+            var author = await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (authors == null)
+            if (author == null)
             {
                 return NotFound();
             }
             else 
             {
-                Authors = authors;
+                Author = author;
             }
             return Page();
         }
@@ -48,12 +48,12 @@ namespace Muzsi_Henrietta_Lab2.Pages.Author
             {
                 return NotFound();
             }
-            var authors = await _context.Authors.FindAsync(id);
+            var author = await _context.Authors.FindAsync(id);
 
-            if (authors != null)
+            if (author != null)
             {
-                Authors = authors;
-                _context.Authors.Remove(Authors);
+                Author = author;
+                _context.Authors.Remove(Author);
                 await _context.SaveChangesAsync();
             }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Muzsi_Henrietta_Lab2.Data;
 using Muzsi_Henrietta_Lab2.Models;
 
-namespace Muzsi_Henrietta_Lab2.Pages.Author
+namespace Muzsi_Henrietta_Lab2.Pages.Authors
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,13 @@ namespace Muzsi_Henrietta_Lab2.Pages.Author
             _context = context;
         }
 
-        public IList<Authors> Authors { get;set; } = default!;
+        public IList<Author> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Authors != null)
             {
-                Authors = await _context.Authors.ToListAsync();
+                Author = await _context.Authors.ToListAsync();
             }
         }
     }

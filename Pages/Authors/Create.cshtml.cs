@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Muzsi_Henrietta_Lab2.Data;
 using Muzsi_Henrietta_Lab2.Models;
 
-namespace Muzsi_Henrietta_Lab2.Pages.Author
+namespace Muzsi_Henrietta_Lab2.Pages.Authors
 {
     public class CreateModel : PageModel
     {
@@ -25,18 +25,18 @@ namespace Muzsi_Henrietta_Lab2.Pages.Author
         }
 
         [BindProperty]
-        public Authors Authors { get; set; } = default!;
+        public Author Author { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Authors == null || Authors == null)
+          if (!ModelState.IsValid || _context.Authors == null || Author == null)
             {
                 return Page();
             }
 
-            _context.Authors.Add(Authors);
+            _context.Authors.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

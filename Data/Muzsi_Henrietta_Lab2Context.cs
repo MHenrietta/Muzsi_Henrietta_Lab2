@@ -18,6 +18,6 @@ namespace Muzsi_Henrietta_Lab2.Data
 
         public DbSet<Muzsi_Henrietta_Lab2.Models.Publisher>? Publisher { get; set; }
 
-        public DbSet<Muzsi_Henrietta_Lab2.Models.Authors>? Authors { get; set; }
+        public DbSet<Muzsi_Henrietta_Lab2.Models.Author>? Authors { get; set; }
     }
 }
