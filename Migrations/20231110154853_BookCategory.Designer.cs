@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Muzsi_Henrietta_Lab2.Data;
 
@@ -11,9 +12,10 @@ using Muzsi_Henrietta_Lab2.Data;
 namespace Muzsi_Henrietta_Lab2.Migrations
 {
     [DbContext(typeof(Muzsi_Henrietta_Lab2Context))]
-    partial class Muzsi_Henrietta_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20231110154853_BookCategory")]
+    partial class BookCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace Muzsi_Henrietta_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Author");
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Book", b =>

@@ -12,8 +12,8 @@ using Muzsi_Henrietta_Lab2.Data;
 namespace Muzsi_Henrietta_Lab2.Migrations
 {
     [DbContext(typeof(Muzsi_Henrietta_Lab2Context))]
-    [Migration("20231109191038_Authors")]
-    partial class Authors
+    [Migration("20231110185420_Authors2")]
+    partial class Authors2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Muzsi_Henrietta_Lab2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Authors", b =>
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Author", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace Muzsi_Henrietta_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Book", b =>
@@ -53,11 +53,7 @@ namespace Muzsi_Henrietta_Lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("AuthorsID")
+                    b.Property<int?>("AuthorID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -75,11 +71,51 @@ namespace Muzsi_Henrietta_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AuthorsID");
+                    b.HasIndex("AuthorID");
 
                     b.HasIndex("PublisherID");
 
                     b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.BookCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("BookCategory");
+                });
+
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Publisher", b =>
@@ -101,22 +137,51 @@ namespace Muzsi_Henrietta_Lab2.Migrations
 
             modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Book", b =>
                 {
-                    b.HasOne("Muzsi_Henrietta_Lab2.Models.Authors", "Authors")
+                    b.HasOne("Muzsi_Henrietta_Lab2.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorsID");
+                        .HasForeignKey("AuthorID");
 
                     b.HasOne("Muzsi_Henrietta_Lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID");
 
-                    b.Navigation("Authors");
+                    b.Navigation("Author");
 
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Authors", b =>
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.BookCategory", b =>
+                {
+                    b.HasOne("Muzsi_Henrietta_Lab2.Models.Book", "Book")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Muzsi_Henrietta_Lab2.Models.Category", "Category")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Book", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Category", b =>
+                {
+                    b.Navigation("BookCategories");
                 });
 
             modelBuilder.Entity("Muzsi_Henrietta_Lab2.Models.Publisher", b =>

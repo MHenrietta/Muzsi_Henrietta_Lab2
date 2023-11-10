@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Muzsi_Henrietta_Lab2.Data;
 using Muzsi_Henrietta_Lab2.Models;
 
-namespace Muzsi_Henrietta_Lab2.Pages.Authors
+namespace Muzsi_Henrietta_Lab2.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace Muzsi_Henrietta_Lab2.Pages.Authors
             _context = context;
         }
 
-      public Author Author { get; set; } = default!; 
+      public Category Category { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Author == null)
+            if (id == null || _context.Category == null)
             {
                 return NotFound();
             }
 
-            var author = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
-            if (author == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
             else 
             {
-                Author = author;
+                Category = category;
             }
             return Page();
         }
