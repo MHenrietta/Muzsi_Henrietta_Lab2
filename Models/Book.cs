@@ -23,7 +23,10 @@ namespace Muzsi_Henrietta_Lab2.Models
 
         public int? AuthorID { get; set; }
         public Author? Author { get; set; }  //navigation property
-    
+
+        
+        public Borrowing? Borrowing { get; set; }
+
         public ICollection<BookCategory>? BookCategories { get; set; }
 
 
